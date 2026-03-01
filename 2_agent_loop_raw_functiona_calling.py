@@ -42,12 +42,12 @@ tools_for_llm = [
                 "properties": {
                     "product": {
                         "type": "string",
-                        "description": "The name of the product to look up"
+                        "description": "The name of the product to look up",
                     }
                 },
-                "required": ["product"]
-            }
-        }
+                "required": ["product"],
+            },
+        },
     },
     {
         "type": "function",
@@ -57,32 +57,30 @@ tools_for_llm = [
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "price": {
-                        "type": "number",
-                        "description": "The original price"
-                    },
+                    "price": {"type": "number", "description": "The original price"},
                     "discount_tier": {
                         "type": "string",
-                        "description": "The discount tier to apply (e.g. bronze, silver, gold)"
-                    }
+                        "description": "The discount tier to apply (e.g. bronze, silver, gold)",
+                    },
                 },
-                "required": ["price", "discount_tier"]
-            }
-        }
-    }
+                "required": ["price", "discount_tier"],
+            },
+        },
+    },
 ]
+
 
 @traceable(name="Ollama Chat", run_type="llm")
 def ollama_chat_traced(messages, tools):
     return ollama.chat(model=MODEL, messages=messages, tools=tools_for_llm)
 
+
 @traceable(name="Ollama Agent Loop")
 def run_agent(question: str):
     tools_dict = {
         "get_product_price": get_product_price,
-        "apply_discount": apply_discount
+        "apply_discount": apply_discount,
     }
-
 
     print(f"Question: {question}")
     print("=" * 60)
@@ -145,6 +143,7 @@ def run_agent(question: str):
 
     print("Max iterations reached without a final answer.")
     return None
+
 
 if __name__ == "__main__":
     print("Hello Langchain Agent (.bind_tools)!")

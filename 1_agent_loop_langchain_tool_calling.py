@@ -91,10 +91,13 @@ def run_agent(question: str):
         print(f"    [Tool Result] {observation}")
 
         messages.append(ai_message)  # Add the AI message with the tool call
-        messages.append(ToolMessage(content=str(observation), tool_call_id=tool_call_id))
+        messages.append(
+            ToolMessage(content=str(observation), tool_call_id=tool_call_id)
+        )
 
     print("Max iterations reached without a final answer.")
     return None
+
 
 if __name__ == "__main__":
     print("Hello Langchain Agent (.bind_tools)!")
